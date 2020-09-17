@@ -5,15 +5,13 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.github.mikephil.charting.charts.CombinedChart
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
-import com.github.mikephil.charting.formatter.IAxisValueFormatter
-import com.github.mikephil.charting.formatter.ValueFormatter
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -21,7 +19,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    //    private var chart: CombinedChart? = null//追加
     
     // スタイルとフォントファミリーの設定
     private var mTypeface = Typeface.create(Typeface.SANS_SERIF, Typeface.NORMAL)
@@ -31,9 +28,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        //        chart = findViewById(R.id.chart1) //未知のエリア
-        //val chart = bar_chart
 
         // グラフの設定
         setupLineChart()
@@ -96,26 +90,6 @@ class MainActivity : AppCompatActivity() {
             //y軸右側の設定
             axisRight.isEnabled = false
 
-            //未知のエリア
-//            val xLabel: ArrayList<String> = ArrayList()
-//            xLabel.add("9")
-//            xLabel.add("15")
-//            xLabel.add("21")
-//            xLabel.add("27")
-//            xLabel.add("33")
-
-//            val xAxis: XAxis = chart.getXAxis()
-//            xAxis.position = XAxis.XAxisPosition.BOTTOM
-//            xAxis.setDrawGridLines(false)
-//            xAxis.setValueFormatter(ValueFormatter { value, axis -> xLabel[value.toInt()] })
-//            //
-//            xAxis.valueFormatter = object : ValueFormatter() {
-//                override fun getFormattedValue(value: Float): String {
-//                    return months.get(value.toInt() % months.length)
-//                }
-//            }
-            //ここまで
-
             //X軸表示
             xAxis.apply {
                 typeface = mTypeface
@@ -132,5 +106,19 @@ class MainActivity : AppCompatActivity() {
                 setDrawGridLines(true)
             }
         }
+
+        //ラベル設定
+        val labels = arrayOf(
+            "1日", "2日", "3日", "4日", "5日", "6日", "7日", "8日", "9日", "10日",
+            "11日", "12日", "13日", "14日", "15日", "16日", "17日", "18日", "19日", "20日",
+        )
+
+        val xAxis = lineChart.xAxis
+        xAxis.valueFormatter = IndexAxisValueFormatter(labels)
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM)
+        xAxis.setDrawGridLines(true)
+        xAxis.setDrawLabels(true)
+        xAxis.setTextSize(12F)
+        //ここまで
     }
 }

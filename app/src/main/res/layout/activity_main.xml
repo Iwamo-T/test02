@@ -10,11 +10,14 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="血圧" />
+        android:text="血圧[mmHG]" />
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/lineChart"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+
+    </com.github.mikephil.charting.charts.LineChart>
 
 </RelativeLayout>
